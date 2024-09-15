@@ -1,0 +1,19 @@
+<div class="search-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Search by title or author</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Type to search..." />
+  </mat-form-field>
+</div>
+
+<div>
+  <button mat-raised-button color="primary" (click)="openBookDialog()">Add New Book</button>
+</div>
+
+<mat-list role="list">
+  <mat-list-item  *ngFor="let book of filteredBooks$ | async; trackBy: trackBy" [@fadeInOut]>
+      <h3>{{ book.title }}</h3>
+      <p>by {{ book.author }} ({{ book.year | date:"mediumDate" }})</p>
+      <button mat-button color="primary" (click)="openBookDialog(book)">Edit</button>
+      <button mat-button color="warn" (click)="deleteBook(book.id)">Delete</button>
+  </mat-list-item>
+</mat-list>
